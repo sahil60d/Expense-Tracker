@@ -1,7 +1,15 @@
+using ExpenseTracker.Models;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Dependency Injection
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseMySql(builder.Configuration.GetConnectionString("DevConnection"),
+    new MySqlServerVersion(new Version(8, 0, 21))));
 
 var app = builder.Build();
 
